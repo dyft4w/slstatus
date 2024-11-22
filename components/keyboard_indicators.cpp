@@ -31,6 +31,7 @@ keyboard_indicators(const char *fmt)
 	XCloseDisplay(dpy);
 
 	fmtlen = strnlen(fmt, 4);
+
 	for (i = n = 0; i < fmtlen; i++) {
 		key = tolower(fmt[i]);
 		if (key != 'c' && key != 'n')
@@ -46,5 +47,8 @@ keyboard_indicators(const char *fmt)
 	}
 
 	buf[n] = 0;
+	//if(strlen(buf)==0){
+	//	return NULL;
+	//}
 	return buf;
 }

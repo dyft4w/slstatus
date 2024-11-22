@@ -57,7 +57,7 @@ main(int argc, char *argv[])
 	sflag = 0;
 	ARGBEGIN {
 	case 'v':
-		die("slstatus-"VERSION);
+		die("slstatus-",VERSION);
 	case '1':
 		done = 1;
 		/* FALLTHROUGH */
@@ -89,11 +89,13 @@ main(int argc, char *argv[])
 		for (i = len = 0; i < LEN(args); i++) {
 			if (!(res = args[i].func(args[i].args)))
 				res = unknown_str;
-
-			if ((ret = esnprintf(status + len, sizeof(status) - len,
-			                     args[i].fmt, res)) < 0)
-				break;
-
+			if(strlen(res)>0){
+				if ((ret = esnprintf(status + len, sizeof(status) - len,
+						     args[i].fmt, res)) < 0)
+					break;
+			}else{
+				ret = 0;
+			}
 			len += ret;
 		}
 

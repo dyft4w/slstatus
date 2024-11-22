@@ -65,12 +65,14 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
+	{ keyboard_indicators, "[CAPS]", "c?"},
 	{ datetime, "[%s]",           "%T" },
-	{ keyboard_indicators, "[%s]", "c?n?"},
 //	{ wifi_perc, "%s", "wlan0"},
 //	{ wifi_essid, "%s", "wlan0"},
+#ifdef LAPTOP
 	{ battery_state, 	"[(%s󱐋)",	"BAT1"},
 	{ battery_perc, 	" %s%: ",	"BAT1"},
 	{ battery_remaining, 	"~%s]", 	"BAT1"},
+#endif
 	{ run_command, "[%s]", "wpctl get-volume @DEFAULT_AUDIO_SINK@"}
 };

@@ -16,7 +16,7 @@
 	{
 		uintmax_t oldrxbytes;
 		static uintmax_t rxbytes;
-		extern const unsigned int interval;
+		//const unsigned int interval;
 		char path[PATH_MAX];
 
 		oldrxbytes = rxbytes;
@@ -37,7 +37,7 @@
 	{
 		uintmax_t oldtxbytes;
 		static uintmax_t txbytes;
-		extern const unsigned int interval;
+		//const unsigned int interval;
 		char path[PATH_MAX];
 
 		oldtxbytes = txbytes;
@@ -66,7 +66,7 @@
 		struct if_data *ifd;
 		uintmax_t oldrxbytes;
 		static uintmax_t rxbytes;
-		extern const unsigned int interval;
+		//const unsigned int interval;
 		int if_ok = 0;
 
 		oldrxbytes = rxbytes;
@@ -100,7 +100,7 @@
 		struct if_data *ifd;
 		uintmax_t oldtxbytes;
 		static uintmax_t txbytes;
-		extern const unsigned int interval;
+		//const unsigned int interval;
 		int if_ok = 0;
 
 		oldtxbytes = txbytes;

@@ -80,7 +80,7 @@ const char *
 bprintf(const char *fmt, ...)
 {
 	va_list ap;
-	int ret;
+	int ret=0;
 
 	va_start(ap, fmt);
 	ret = evsnprintf(buf, sizeof(buf), fmt, ap);
