@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <format>
 #include <fstream>
+#include <sstream>
 #include <stdio.h>
 #include <string.h>
 #include <string>
@@ -71,9 +72,11 @@ const char* battery_state(const char* bat)
     /*size_t i;*/
     /*char path[PATH_MAX], state[12];*/
     std::string state;
+    std::stringstream state_str;
     state.resize(12);
     std::fstream f(std::format(POWER_SUPPLY_STATUS_CPP20, bat));
-    f.readsome((char *)state.c_str(), 12);
+    state_str << f.rdbuf();
+    state = state_str.str();
     std::cerr << state << "|" << std::endl;
     /*if (esnprintf(path, sizeof(path), POWER_SUPPLY_STATUS, bat) < 0)*/
     /*	return NULL;*/

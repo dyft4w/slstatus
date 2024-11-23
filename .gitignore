@@ -2,3 +2,4 @@ slstatus
 *.o
 build*
 *.opp
+.cache
