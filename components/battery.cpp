@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 #include "../slstatus.h"
 #include "../util.h"
@@ -73,7 +74,7 @@
 			if (!strcmp(map[i].state, state))
 				break;
 
-		return (i == LEN(map)) ? "?" : map[i].symbol;
+		return (i == LEN(map) ? "?" : map[i].symbol);
 	}
 
 	const char *

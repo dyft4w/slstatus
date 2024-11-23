@@ -1,0 +1,1 @@
+option('BAT', type: 'string', value: '', description: 'add battery statuses')

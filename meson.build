@@ -1,6 +1,5 @@
 # Name, Language
 project('slstatus','cpp')
-option('BAT', type: 'boolean', value: false, description: 'add battery statuses')
 version='1.1'
 # Files
 src=['slstatus.cpp','util.cpp']
@@ -32,9 +31,9 @@ components=[
 x11_dep = [dependency('x11'),dependency('freetype2'),dependency('xft'),dependency('fontconfig')]
 #others (ugly ahh hell ik ik), Wno-d-d is in the OG Makefile
 add_project_arguments(['-DVERSION="'+version+'"','-Wno-deprecated-declarations'],language : 'cpp')
-if BAT:
-  add_project_arguments('-DBATTERY', language:cpp)
-
+if get_option('BAT')!=''
+  add_project_arguments('-DBATTERY="'+get_option('BAT')+'"', language:'cpp')
+endif
 install='/usr/local/bin/'
 
 executable('slstatus',

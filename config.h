@@ -69,10 +69,10 @@ static const struct arg args[] = {
 	{ datetime, "[%s]",           "%T" },
 //	{ wifi_perc, "%s", "wlan0"},
 //	{ wifi_essid, "%s", "wlan0"},
-#ifdef LAPTOP
-	{ battery_state, 	"[(%s󱐋)",	"BAT1"},
-	{ battery_perc, 	" %s%: ",	"BAT1"},
-	{ battery_remaining, 	"~%s]", 	"BAT1"},
+#ifdef BATTERY
+	{ battery_state, 	"[(%s󱐋)",	BATTERY},
+	{ battery_perc, 	" %s%: ",	BATTERY},
+	{ battery_remaining, 	"~%s]", 	BATTERY},
 #endif
 	{ run_command, "[%s]", "wpctl get-volume @DEFAULT_AUDIO_SINK@"}
 };
