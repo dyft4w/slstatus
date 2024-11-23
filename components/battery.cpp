@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <iostream>
 #include <algorithm>
 #include <cstddef>
 #include <format>
@@ -22,7 +23,7 @@
 
 #define POWER_SUPPLY_CAPACITY "/sys/class/power_supply/%s/capacity"
 #define POWER_SUPPLY_STATUS "/sys/class/power_supply/%s/status"
-#define POWER_SUPPLY_STATUS_CPP20 "/sys/class/power_supply/%s/status"
+#define POWER_SUPPLY_STATUS_CPP20 "/sys/class/power_supply/{}/status"
 #define POWER_SUPPLY_CHARGE "/sys/class/power_supply/%s/charge_now"
 #define POWER_SUPPLY_ENERGY "/sys/class/power_supply/%s/energy_now"
 #define POWER_SUPPLY_CURRENT "/sys/class/power_supply/%s/current_now"
@@ -69,11 +70,11 @@ const char* battery_state(const char* bat)
     };
     /*size_t i;*/
     /*char path[PATH_MAX], state[12];*/
-    std::strstream state_stream;
     std::string state;
+    state.resize(12);
     std::fstream f(std::format(POWER_SUPPLY_STATUS_CPP20, bat));
-    state_stream << f.rdbuf();
-    state = state_stream.str();
+    f.readsome((char *)state.c_str(), 12);
+    std::cerr << state << "|" << std::endl;
     /*if (esnprintf(path, sizeof(path), POWER_SUPPLY_STATUS, bat) < 0)*/
     /*	return NULL;*/
     /*if (pscanf(path, "%12[a-zA-Z ]", state) != 1)*/
@@ -84,7 +85,7 @@ const char* battery_state(const char* bat)
     /*        break;*/
 
     /*return (i == LEN(map) ? "?" : map[i].symbol);*/
-    return (map.find(state)==map.end() ? "?" : map.at(state).c_str());
+    return map.at(state).c_str();
 }
 
 const char* battery_remaining(const char* bat)
