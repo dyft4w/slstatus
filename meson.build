@@ -1,5 +1,5 @@
 # Name, Language
-project('slstatus','cpp')
+project('slstatus','cpp', default_options:'cpp_std=c++20')
 version='1.1'
 # Files
 src=['slstatus.cpp','util.cpp']
@@ -41,6 +41,7 @@ executable('slstatus',
             components,
             dependencies : x11_dep,
             install : true,
-            install_dir : install)
+            install_dir : install
+            )
 install_man('slstatus.1')
 
