@@ -9,7 +9,6 @@
 #include <string.h>
 #include <string>
 #include <unordered_map>
-#include <strstream>
 
 #include "../slstatus.h"
 #include "../util.h"
@@ -23,6 +22,7 @@
 #include <unistd.h>
 
 #define POWER_SUPPLY_CAPACITY "/sys/class/power_supply/%s/capacity"
+#define POWER_SUPPLY_CAPACITY_CPP20 "/sys/class/power_supply/{}/capacity"
 #define POWER_SUPPLY_STATUS "/sys/class/power_supply/%s/status"
 #define POWER_SUPPLY_STATUS_CPP20 "/sys/class/power_supply/{}/status"
 #define POWER_SUPPLY_CHARGE "/sys/class/power_supply/%s/charge_now"
@@ -44,20 +44,22 @@ static const char* pick(const char* bat, const char* f1, const char* f2,
 
 const char* battery_perc(const char* bat)
 {
-    int cap_perc;
-    char path[PATH_MAX];
+    //int cap_perc;
+    //char path[PATH_MAX];
+    std::string perc;
+    std::ifstream f(std::format(POWER_SUPPLY_CAPACITY_CPP20, bat));
+    if(!f.is_open())
+    	return NULL;
+    f>>perc;
 
-    if (esnprintf(path, sizeof(path), POWER_SUPPLY_CAPACITY, bat) < 0)
-        return NULL;
-    if (pscanf(path, "%d", &cap_perc) != 1)
-        return NULL;
-
-    return bprintf("%d", cap_perc);
+    //if (esnprintf(path, sizeof(path), POWER_SUPPLY_CAPACITY, bat) < 0)
+    //    return NULL;
+    //if (pscanf(path, "%d", &cap_perc) != 1)
+    //    return NULL;
+    
+    return bprintf("%d", std::stoi(perc));
 }
-struct Map {
-    std::string state;
-    std::string symbol;
-};
+
 const char* battery_state(const char* bat)
 {
     /*static struct {*/
@@ -71,13 +73,13 @@ const char* battery_state(const char* bat)
     };
     /*size_t i;*/
     /*char path[PATH_MAX], state[12];*/
-    std::string state;
-    std::stringstream state_str;
-    state.resize(12);
-    std::fstream f(std::format(POWER_SUPPLY_STATUS_CPP20, bat));
-    state_str << f.rdbuf();
-    state = state_str.str();
-    std::cerr << state << "|" << std::endl;
+    std::string state, raw_state;
+    std::ifstream f(std::format(POWER_SUPPLY_STATUS_CPP20, bat));
+    f >> raw_state;
+    for(auto &i : raw_state){
+        if(std::isalpha(i))
+	    state+=i;
+    }   
     /*if (esnprintf(path, sizeof(path), POWER_SUPPLY_STATUS, bat) < 0)*/
     /*	return NULL;*/
     /*if (pscanf(path, "%12[a-zA-Z ]", state) != 1)*/

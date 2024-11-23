@@ -72,7 +72,7 @@ static const struct arg args[] = {
 #ifdef BATTERY
 	{ battery_state, 	"[(%s󱐋)",	BATTERY},
 	//{ battery_perc, 	" %s%: ",	BATTERY},
-	//{ battery_remaining, 	"~%s]", 	BATTERY},
+	{ battery_remaining, 	"~%s]", 	BATTERY},
 #endif
 	{ run_command, "[%s]", "wpctl get-volume @DEFAULT_AUDIO_SINK@"}
 };
