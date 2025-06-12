@@ -65,14 +65,15 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ keyboard_indicators, "[CAPS]", "c?"},
-	{ datetime, "[%s]",           "%T" },
+	{ keyboard_indicators,		"[CAPS]",		"c?"},
+	{ datetime,					"[%s]",			"%T" },
 //	{ wifi_perc, "%s", "wlan0"},
 //	{ wifi_essid, "%s", "wlan0"},
 #ifdef BATTERY
-	{ battery_state, 	"[(%s󱐋)",	BATTERY},
-	{ battery_perc, 	" %s%%: ",	BATTERY},
-	{ battery_remaining, 	"~%s]", 	BATTERY},
+	{ run_command,				"[ %s]",		"~/scripts/get_brightness.sh"},
+	{ battery_state,			"[(%s󱐋)",		BATTERY},
+	{ battery_perc,				" %s%%: ",		BATTERY},
+	{ battery_remaining,		"~%s]",			BATTERY},
 #endif
-	{ run_command, "[%s]", "wpctl get-volume @DEFAULT_AUDIO_SINK@"}
+	{ run_command,				"[%s]",			"wpctl get-volume @DEFAULT_AUDIO_SINK@"}
 };

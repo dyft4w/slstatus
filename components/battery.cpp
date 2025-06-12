@@ -87,7 +87,7 @@ const char *battery_state(const char *bat) {
 	/*        break;*/
 
 	/*return (i == LEN(map) ? "?" : map[i].symbol);*/
-	return map.at(state).c_str();
+	return (map.find(state)!=map.end() ? map.at(state).c_str(): "?");
 }
 
 const char *battery_remaining(const char *bat) {
@@ -121,7 +121,7 @@ const char *battery_remaining(const char *bat) {
 		return bprintf("%juh %jum", h, m);
 	}
 
-	return "";
+	return "inf";
 }
 #elif defined(__OpenBSD__)
 #include <fcntl.h>
